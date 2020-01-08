@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
+
+    protected $fillable=[
+        'name', 'is_active'
+    ];
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

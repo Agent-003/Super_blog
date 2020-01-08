@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\FilmService;
 use App\Services\FilmServiceInterface;
+use App\Services\PostService;
+use App\Services\PostServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -17,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            FilmServiceInterface::class,
-            FilmService::class);
+            PostServiceInterface::class,
+            PostService::class);
     }
 
     /**

@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('preview');
             $table->text('content');
-            $table->boolean('is_publised');
+            $table->boolean('is_published');
             $table->string('poster')->nullable(true);
             $table->bigInteger('category_id');
             $table->bigInteger('user_id');
