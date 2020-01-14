@@ -5,14 +5,15 @@
         <div class="row add-bottom">
             <div class="col-twelve">
                 <h3>All your posts</h3>
-                <div class="table-responsive">
+                <div class="table-responsive table-striped">
                     <table>
-                        <thead>
+                        <thead class="thead-dark">
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th> X </th>
+                            <th> Edit </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,7 +31,12 @@
                                         <button type="submit" class="btn btn--primary ">X</button>
                                     </form>
                                 </td>
-{{--                                <td><a href="{{ route('delete_post', ['postId'=> $post->id]) }}">X</a></td>--}}
+                                <td> <form method="post" action="{{ route('edit_post', ['postId'=> $post->id]) }}" >
+                                        @csrf
+                                        {{ method_field('PUT') }}
+                                        <button type="submit" class="btn btn--primary ">edit</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

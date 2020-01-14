@@ -81,7 +81,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post=$this->postService->getPostById($id);
+        $categories=$this->postService->getCategories();
+        return view ('post.edit',compact('post','categories'));
     }
 
     /**
@@ -93,7 +95,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'preview' => 'required',
+            'content' => 'required',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        $postData = $request->all();
+
+        $poster = $request->file('poster')->store('public');
+        $poster = str_replace('public', 'storage', $poster);
+        $postData['poster'] = $poster;
+        $postId = $this->postService->editPost($postData);
+        return response(redirect('/post/' .  $postId));
     }
 
     /**

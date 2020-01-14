@@ -502,7 +502,8 @@ dl,
 form,
 .video-container,
 .cl-custom-select {
-   margin-bottom: 3rem;
+   margin-bottom: 0;
+   /*margin-bottom: 3rem;*/
 }
 
 
@@ -823,7 +824,8 @@ input[type="button"] {
    letter-spacing: .3rem;
    height: 5.4rem;
    line-height: 5rem;
-   padding: 0 3rem;
+   /*padding: 0 3rem;*/
+   padding: 0 2rem;
    margin: 0 .3rem 1.2rem 0;
    color: #000000;
    text-decoration: none;

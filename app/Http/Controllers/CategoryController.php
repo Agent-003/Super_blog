@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use DeletableTrait;
 
     private $postService;
 
-    public function __construct(PostServiceInterface $postService)
+    public function __construct(\App\Services\PostServiceInterface $postService)
     {
         $this->postService=$postService;
     }
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=$this->categories->getCategories();
+        $categories=$this->postService->getCategories();
         return view('category.index', compact('categories'));
     }
 
@@ -35,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -46,7 +47,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->all();
+        $this->postService->createCategory($attributes);
+        return response()->redirectToRoute('list_categories');
     }
 
     /**
@@ -57,7 +60,12 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories=$this->postService->getCategories();
+        $category=$this->postService->getCategory($id);
+
+        if(!$category) {
+            abort(404);
+        }
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -68,7 +76,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->postService->getCategory($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -80,7 +89,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $attributes = $request->all();
+        $this->postService->editCategory($attributes);
+        return response()->redirectToRoute('list_categories');
     }
 
     /**
@@ -91,6 +102,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category=$this->postService->getCategories($id);
+
+        $category=$this->delete($category);
+
+        $category->save();
+
+        return back();
+
     }
 }

@@ -15,9 +15,9 @@ interface PostServiceInterface
      * @param int $categoryId
      * @return Collection
      */
-    public function getPostsByCategory(int $categoryId): ?Collection;
+    public function getCategory(int $categoryId): ?Category;
 
-    public function getPosts(int $page, int $perPage=10): LengthAwarePaginator;
+    public function getPosts(int $page, int $perPage=5): LengthAwarePaginator;
 
     public function getCategories(): ?Collection;
 
@@ -44,6 +44,8 @@ interface PostServiceInterface
      * @return int
      */
     public function createPost(array $attributes): int;
+
+    public function editPost(array $attributes): int;
 
     /**
      * Publishing method
